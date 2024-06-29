@@ -9,6 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@Table(name = "moneypots")
 public class PostgreSQLMoneyPot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

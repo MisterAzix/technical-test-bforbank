@@ -11,16 +11,16 @@ import java.util.Optional;
 
 @Repository
 public class PostgreSQLMoneyPotRepository implements MoneyPotRepository {
-    private final PostgreSQLJpaRepository postgresSQLJpaRepository;
+    private final MoneyPotJpaRepository moneyPotJpaRepository;
 
     @Autowired
-    public PostgreSQLMoneyPotRepository(PostgreSQLJpaRepository postgresSQLJpaRepository) {
-        this.postgresSQLJpaRepository = postgresSQLJpaRepository;
+    public PostgreSQLMoneyPotRepository(MoneyPotJpaRepository moneyPotJpaRepository) {
+        this.moneyPotJpaRepository = moneyPotJpaRepository;
     }
 
     @Override
     public Optional<MoneyPot> findByClientId(Long clientId) {
-        PostgreSQLMoneyPot postgreSQLMoneyPot = this.postgresSQLJpaRepository.findByClientId(clientId).orElse(null);
+        PostgreSQLMoneyPot postgreSQLMoneyPot = this.moneyPotJpaRepository.findByClientId(clientId).orElse(null);
         assert postgreSQLMoneyPot != null;
         return Optional.of(MoneyPotDTO.toDomain(postgreSQLMoneyPot));
     }
@@ -28,6 +28,6 @@ public class PostgreSQLMoneyPotRepository implements MoneyPotRepository {
     @Override
     public void save(MoneyPot moneyPot) {
         PostgreSQLMoneyPot persistentMoneyPot = MoneyPotDTO.toPersistent(moneyPot);
-        this.postgresSQLJpaRepository.save(persistentMoneyPot);
+        this.moneyPotJpaRepository.save(persistentMoneyPot);
     }
 }
