@@ -23,4 +23,17 @@ public class MoneyPot {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    public void addAmount(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Amount must be positive");
+        }
+        this.amount += amount;
+        this.updatedAt = new Date();
+    }
+
+    public void addNewTransaction() {
+        this.numberOfTransactions++;
+        this.updatedAt = new Date();
+    }
 }
