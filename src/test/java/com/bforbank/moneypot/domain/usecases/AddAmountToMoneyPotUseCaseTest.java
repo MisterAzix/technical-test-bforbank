@@ -3,8 +3,10 @@ package com.bforbank.moneypot.domain.usecases;
 import com.bforbank.moneypot.adapters.local.repository.LocalMoneyPotRepository;
 import com.bforbank.moneypot.domain.entity.MoneyPot;
 import org.junit.jupiter.api.Test;
+
 import java.util.Date;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddAmountToMoneyPotUseCaseTest {
@@ -34,7 +36,7 @@ class AddAmountToMoneyPotUseCaseTest {
     }
 
     @Test
-    void should_increase_number_of_transactions_when_adding_amount_to_moneypot() {
+    void should_increase_number_of_transactions_when_adding_amount_to_money_pot() {
         // Given
         localMoneyPotRepository._populate(List.of(
                 new MoneyPot(1L, 1L, 100L, 0, new Date(), new Date())
@@ -53,7 +55,7 @@ class AddAmountToMoneyPotUseCaseTest {
     }
 
     @Test
-    void should_throw_exception_when_moneypot_not_found() {
+    void should_throw_exception_when_money_pot_not_found() {
         // Given
         localMoneyPotRepository._populate(List.of(
                 new MoneyPot(1L, 1L, 100L, 0, new Date(), new Date())
