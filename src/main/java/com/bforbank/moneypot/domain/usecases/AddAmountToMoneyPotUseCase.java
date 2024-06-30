@@ -23,10 +23,4 @@ public class AddAmountToMoneyPotUseCase implements UseCase<AddAmountToMoneyPotIn
         moneyPotRepository.save(moneyPot);
         return moneyPot;
     }
-
-    public record Input(Long clientId, Long amount) {
-    }
-
-    public record Output(MoneyPot moneyPot) {
-    }
 }
