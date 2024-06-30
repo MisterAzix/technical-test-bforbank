@@ -12,6 +12,7 @@ public class MoneyPot {
     Long clientId;
     double amount;
     int numberOfTransactions;
+    boolean isAvailable;
     final Date createdAt;
     Date updatedAt;
 
@@ -20,6 +21,7 @@ public class MoneyPot {
         this.clientId = clientId;
         this.amount = amount;
         this.numberOfTransactions = numberOfTransactions;
+        this.isAvailable = this.checkAvailability();
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -35,5 +37,9 @@ public class MoneyPot {
     public void addNewTransaction() {
         this.numberOfTransactions++;
         this.updatedAt = new Date();
+    }
+
+    private boolean checkAvailability() {
+        return this.numberOfTransactions >= 3 && this.amount >= 10;
     }
 }

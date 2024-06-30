@@ -33,6 +33,8 @@ class ViewMoneyPotUseCaseTest {
         assertEquals(1L, moneyPot.getId());
         assertEquals(1L, moneyPot.getClientId());
         assertEquals(100L, moneyPot.getAmount());
+        assertEquals(0, moneyPot.getNumberOfTransactions());
+        assertFalse(moneyPot.isAvailable());
     }
 
     @Test
@@ -49,5 +51,21 @@ class ViewMoneyPotUseCaseTest {
 
         // Then
         assertEquals("Money pot not found", exception.getMessage());
+    }
+
+    void should_return_isAvailable_when_number_of_transactions_is_3_and_amount_is_10() {
+        // Given
+        localMoneyPotRepository._populate(List.of(
+                new MoneyPot(1L, 1L, 10L, 3, new Date(), new Date())
+        ));
+        ViewMoneyPotUseCase viewMoneyPotUseCase = new ViewMoneyPotUseCase(localMoneyPotRepository);
+        ViewMoneyPotInput input = new ViewMoneyPotInput(1L);
+
+        // When
+        MoneyPot moneyPot = viewMoneyPotUseCase.execute(input);
+
+        // Then
+        assertNotNull(moneyPot);
+        assertTrue(moneyPot.isAvailable());
     }
 }
