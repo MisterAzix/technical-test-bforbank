@@ -21,7 +21,9 @@ public class PostgreSQLMoneyPotRepository implements MoneyPotRepository {
     @Override
     public Optional<MoneyPot> findByClientId(Long clientId) {
         PostgreSQLMoneyPot postgreSQLMoneyPot = this.moneyPotJpaRepository.findByClientId(clientId).orElse(null);
-        assert postgreSQLMoneyPot != null;
+        if (postgreSQLMoneyPot == null) {
+            return Optional.empty();
+        }
         return Optional.of(MoneyPotDTO.toDomain(postgreSQLMoneyPot));
     }
 

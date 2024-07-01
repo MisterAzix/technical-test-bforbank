@@ -25,32 +25,18 @@ public class MoneyPotController {
 
     @PostMapping("/{clientId}")
     public ResponseEntity<Void> addAmount(@PathVariable Long clientId, @RequestBody double amount) {
-        try {
-            AddAmountToMoneyPotInput input = new AddAmountToMoneyPotInput(
-                    clientId,
-                    amount
-            );
-            addAmountToMoneyPotUseCase.execute(input);
-            return ResponseEntity.ok().build();
-        } catch (MoneyPotNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (NegativeAmountException e) {
-            return ResponseEntity.badRequest().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().build();
-        }
+        AddAmountToMoneyPotInput input = new AddAmountToMoneyPotInput(
+                clientId,
+                amount
+        );
+        addAmountToMoneyPotUseCase.execute(input);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{clientId}")
     public ResponseEntity<MoneyPot> viewMoneyPot(@PathVariable Long clientId) {
-        try {
-            ViewMoneyPotInput input = new ViewMoneyPotInput(clientId);
-            MoneyPot moneyPot = viewMoneyPotUseCase.execute(input);
-            return ResponseEntity.ok(moneyPot);
-        } catch (MoneyPotNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().build();
-        }
+        ViewMoneyPotInput input = new ViewMoneyPotInput(clientId);
+        MoneyPot moneyPot = viewMoneyPotUseCase.execute(input);
+        return ResponseEntity.ok(moneyPot);
     }
 }
