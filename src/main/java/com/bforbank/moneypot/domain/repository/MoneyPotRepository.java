@@ -7,6 +7,6 @@ import java.util.Optional;
 
 @Repository
 public interface MoneyPotRepository {
-    Optional<MoneyPot> findByClientId(Long clientId);
+    Optional<MoneyPot> findByClient_id(Long clientId);
     void save(MoneyPot moneyPot);
 }

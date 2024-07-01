@@ -16,7 +16,7 @@ public class LocalMoneyPotRepository implements MoneyPotRepository {
     }
 
     @Override
-    public Optional<MoneyPot> findByClientId(Long clientId) {
+    public Optional<MoneyPot> findByClient_id(Long clientId) {
         return moneyPots.stream()
                 .filter(moneyPot -> Objects.equals(moneyPot.getClientId(), clientId))
                 .findFirst();

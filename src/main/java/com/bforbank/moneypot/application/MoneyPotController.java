@@ -23,7 +23,7 @@ public class MoneyPotController {
     }
 
     @PostMapping("/{clientId}")
-    public ResponseEntity<Void> addAmount(@PathVariable Long clientId, @Valid AddAmountRequest request) {
+    public ResponseEntity<Void> addAmount(@PathVariable Long clientId, @RequestBody @Valid AddAmountRequest request) {
         AddAmountToMoneyPotInput input = new AddAmountToMoneyPotInput(clientId, request.getAmount());
         addAmountToMoneyPotUseCase.execute(input);
         return ResponseEntity.ok().build();

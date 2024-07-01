@@ -18,7 +18,7 @@ public class AddAmountToMoneyPotUseCase implements UseCase<AddAmountToMoneyPotIn
 
     @Override
     public MoneyPot execute(AddAmountToMoneyPotInput input) throws NegativeAmountException, MoneyPotNotFoundException {
-        MoneyPot moneyPot = moneyPotRepository.findByClientId(input.clientId())
+        MoneyPot moneyPot = moneyPotRepository.findByClient_id(input.clientId())
                 .orElseThrow(() -> new MoneyPotNotFoundException(input.clientId()));
         moneyPot.addAmount(input.amount());
         moneyPot.addNewTransaction();

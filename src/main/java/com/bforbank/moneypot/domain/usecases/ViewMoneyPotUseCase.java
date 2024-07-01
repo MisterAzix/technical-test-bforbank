@@ -17,10 +17,7 @@ public class ViewMoneyPotUseCase implements UseCase<ViewMoneyPotInput, MoneyPot>
 
     @Override
     public MoneyPot execute(ViewMoneyPotInput input) {
-        System.out.println("ViewMoneyPotUseCase.execute: input = " + input);
-        MoneyPot moneyPot = moneyPotRepository.findByClientId(input.clientId())
+        return moneyPotRepository.findByClient_id(input.clientId())
                 .orElseThrow(() -> new MoneyPotNotFoundException(input.clientId()));
-        System.out.println("ViewMoneyPotUseCase.execute: moneyPot = " + moneyPot);
-        return moneyPot;
     }
 }
