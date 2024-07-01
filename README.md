@@ -6,6 +6,14 @@ Welcome to the BforBank MoneyPot Microservice. This project is a part of the tec
 
 The microservice is built using Java, Spring Boot, SQL, and Maven. It exposes a REST API for managing the MoneyPots.
 
+## What could be improved ?
+- Add rights management with a canExecute method at usecase level
+- Add Deployment 
+- Add environment management (to prepare deployment)
+- Add E2E tests
+- Add coverage check to prevent pull request to be merged if test coverage is not enough
+- Add a small front to interact with the API
+
 ## Installation Guide
 
 ### Prerequisites
