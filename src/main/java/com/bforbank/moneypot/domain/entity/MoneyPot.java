@@ -32,11 +32,8 @@ public class MoneyPot {
             throw new NegativeAmountException();
         }
         this.amount += amount;
-        this.updatedAt = new Date();
-    }
-
-    public void addNewTransaction() {
         this.numberOfTransactions++;
+        this.isAvailable = this.checkAvailability();
         this.updatedAt = new Date();
     }
 

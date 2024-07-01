@@ -21,7 +21,6 @@ public class AddAmountToMoneyPotUseCase implements UseCase<AddAmountToMoneyPotIn
         MoneyPot moneyPot = moneyPotRepository.findByClient_id(input.clientId())
                 .orElseThrow(() -> new MoneyPotNotFoundException(input.clientId()));
         moneyPot.addAmount(input.amount());
-        moneyPot.addNewTransaction();
         moneyPotRepository.save(moneyPot);
         return moneyPot;
     }
