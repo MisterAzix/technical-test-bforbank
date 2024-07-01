@@ -35,6 +35,22 @@ docker-compose up -d
 ```bash
 mvn spring-boot:run
 ```
+Project available at http://localhost:8080
+
+## Examples
+
+1. View moneypot containing 15€ and 3 transactions, available is true
+<img width="1311" alt="image" src="https://github.com/MisterAzix/technical-test-bforbank/assets/40914400/e95361fc-1419-45c7-b67d-e974dbfe58e0">
+
+2. View moneypot containing 20€ but only 2 transactions, available is false
+<img width="1311" alt="image" src="https://github.com/MisterAzix/technical-test-bforbank/assets/40914400/aecba14e-ff68-4a45-9497-d1a62bbe96f6">
+
+3. Adding money to moneypot
+<img width="1311" alt="image" src="https://github.com/MisterAzix/technical-test-bforbank/assets/40914400/9737ee5f-f85b-4377-9d28-8cd1a8b6af5a">
+<img width="1312" alt="image" src="https://github.com/MisterAzix/technical-test-bforbank/assets/40914400/7fdfc7f7-a99a-48b8-9ccb-f36d1beb9d20">
+
+4. View a not found moneypot
+<img width="1312" alt="image" src="https://github.com/MisterAzix/technical-test-bforbank/assets/40914400/e4540cd0-9a70-4ba7-9a3f-81c141bd6ece">
 
 ## 👤️ Authors 👤
 
