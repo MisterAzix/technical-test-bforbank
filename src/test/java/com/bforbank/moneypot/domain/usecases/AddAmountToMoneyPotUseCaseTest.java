@@ -2,6 +2,8 @@ package com.bforbank.moneypot.domain.usecases;
 
 import com.bforbank.moneypot.adapters.local.repository.LocalMoneyPotRepository;
 import com.bforbank.moneypot.domain.entity.MoneyPot;
+import com.bforbank.moneypot.domain.exception.MoneyPotNotFoundException;
+import com.bforbank.moneypot.domain.exception.NegativeAmountException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -57,17 +59,18 @@ class AddAmountToMoneyPotUseCaseTest {
     @Test
     void should_throw_exception_when_money_pot_not_found() {
         // Given
+        Long clientId = 4L;
         localMoneyPotRepository._populate(List.of(
                 new MoneyPot(1L, 1L, 100L, 0, new Date(), new Date())
         ));
         AddAmountToMoneyPotUseCase addAmountToMoneyPotUseCase = new AddAmountToMoneyPotUseCase(localMoneyPotRepository);
-        AddAmountToMoneyPotInput input = new AddAmountToMoneyPotInput(4L, 100L);
+        AddAmountToMoneyPotInput input = new AddAmountToMoneyPotInput(clientId, 100L);
 
         // When
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> addAmountToMoneyPotUseCase.execute(input));
+        MoneyPotNotFoundException exception = assertThrows(MoneyPotNotFoundException.class, () -> addAmountToMoneyPotUseCase.execute(input));
 
         // Then
-        assertEquals("MoneyPot not found", exception.getMessage());
+        assertEquals("MoneyPot not found for clientId: " + clientId, exception.getMessage());
     }
 
     @Test
@@ -80,7 +83,7 @@ class AddAmountToMoneyPotUseCaseTest {
         AddAmountToMoneyPotInput input = new AddAmountToMoneyPotInput(1L, -100L);
 
         // When
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> addAmountToMoneyPotUseCase.execute(input));
+        NegativeAmountException exception = assertThrows(NegativeAmountException.class, () -> addAmountToMoneyPotUseCase.execute(input));
 
         // Then
         assertEquals("Amount must be positive", exception.getMessage());

@@ -1,5 +1,7 @@
 package com.bforbank.moneypot.domain.usecases;
 
+import com.bforbank.moneypot.domain.exception.MoneyPotNotFoundException;
+import com.bforbank.moneypot.domain.exception.NegativeAmountException;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.bforbank.moneypot.domain.entity.MoneyPot;
@@ -15,9 +17,9 @@ public class AddAmountToMoneyPotUseCase implements UseCase<AddAmountToMoneyPotIn
     }
 
     @Override
-    public MoneyPot execute(AddAmountToMoneyPotInput input) {
+    public MoneyPot execute(AddAmountToMoneyPotInput input) throws NegativeAmountException, MoneyPotNotFoundException {
         MoneyPot moneyPot = moneyPotRepository.findByClientId(input.clientId())
-                .orElseThrow(() -> new IllegalArgumentException("MoneyPot not found"));
+                .orElseThrow(() -> new MoneyPotNotFoundException(input.clientId()));
         moneyPot.addAmount(input.amount());
         moneyPot.addNewTransaction();
         moneyPotRepository.save(moneyPot);

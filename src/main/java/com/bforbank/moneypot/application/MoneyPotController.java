@@ -1,6 +1,8 @@
 package com.bforbank.moneypot.application;
 
 import com.bforbank.moneypot.domain.entity.MoneyPot;
+import com.bforbank.moneypot.domain.exception.MoneyPotNotFoundException;
+import com.bforbank.moneypot.domain.exception.NegativeAmountException;
 import com.bforbank.moneypot.domain.usecases.AddAmountToMoneyPotInput;
 import com.bforbank.moneypot.domain.usecases.AddAmountToMoneyPotUseCase;
 import com.bforbank.moneypot.domain.usecases.ViewMoneyPotInput;
@@ -30,8 +32,12 @@ public class MoneyPotController {
             );
             addAmountToMoneyPotUseCase.execute(input);
             return ResponseEntity.ok().build();
-        } catch (IllegalArgumentException e) {
+        } catch (MoneyPotNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (NegativeAmountException e) {
             return ResponseEntity.badRequest().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -41,8 +47,10 @@ public class MoneyPotController {
             ViewMoneyPotInput input = new ViewMoneyPotInput(clientId);
             MoneyPot moneyPot = viewMoneyPotUseCase.execute(input);
             return ResponseEntity.ok(moneyPot);
-        } catch (IllegalArgumentException e) {
+        } catch (MoneyPotNotFoundException e) {
             return ResponseEntity.notFound().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

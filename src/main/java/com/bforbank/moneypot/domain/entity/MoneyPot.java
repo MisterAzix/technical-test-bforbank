@@ -1,5 +1,6 @@
 package com.bforbank.moneypot.domain.entity;
 
+import com.bforbank.moneypot.domain.exception.NegativeAmountException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,7 +29,7 @@ public class MoneyPot {
 
     public void addAmount(double amount) {
         if (amount < 0) {
-            throw new IllegalArgumentException("Amount must be positive");
+            throw new NegativeAmountException();
         }
         this.amount += amount;
         this.updatedAt = new Date();

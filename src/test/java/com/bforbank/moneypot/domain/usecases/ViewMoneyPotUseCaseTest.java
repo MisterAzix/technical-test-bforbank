@@ -2,6 +2,7 @@ package com.bforbank.moneypot.domain.usecases;
 
 import com.bforbank.moneypot.adapters.local.repository.LocalMoneyPotRepository;
 import com.bforbank.moneypot.domain.entity.MoneyPot;
+import com.bforbank.moneypot.domain.exception.MoneyPotNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -40,17 +41,18 @@ class ViewMoneyPotUseCaseTest {
     @Test
     void should_throw_exception_when_money_pot_not_found() {
         // Given
+        Long clientId = 2L;
         localMoneyPotRepository._populate(List.of(
                 new MoneyPot(1L, 1L, 100L, 0, new Date(), new Date())
         ));
         ViewMoneyPotUseCase viewMoneyPotUseCase = new ViewMoneyPotUseCase(localMoneyPotRepository);
-        ViewMoneyPotInput input = new ViewMoneyPotInput(2L);
+        ViewMoneyPotInput input = new ViewMoneyPotInput(clientId);
 
         // When
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> viewMoneyPotUseCase.execute(input));
+        MoneyPotNotFoundException exception = assertThrows(MoneyPotNotFoundException.class, () -> viewMoneyPotUseCase.execute(input));
 
         // Then
-        assertEquals("Money pot not found", exception.getMessage());
+        assertEquals("MoneyPot not found for clientId: " + clientId, exception.getMessage());
     }
 
     void should_return_isAvailable_when_number_of_transactions_is_3_and_amount_is_10() {
